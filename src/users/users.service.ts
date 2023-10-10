@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IFindOne, IUser } from './interfaces/user.interface';
+import { Role } from 'src/roles/role.enum';
 
 @Injectable()
 export class UsersService {
@@ -11,6 +12,7 @@ export class UsersService {
       username: 'Adeel',
       email: 'hafizadeel493@gmail.com',
       password: 'Adeel123',
+      role: Role.Admin,
       dob: 'Mon Oct 09 2023 17:39:22 GMT+0500 (Pakistan Standard Time)',
       gender: 'male',
       isSubscribeToNewsLetter: true,
@@ -22,6 +24,7 @@ export class UsersService {
       username: 'Khurrum',
       email: 'khurrum@gmail.com',
       password: 'Adeel123',
+      role: Role.User,
       dob: 'Mon Oct 09 2023 17:39:22 GMT+0500 (Pakistan Standard Time)',
       gender: 'male',
       isSubscribeToNewsLetter: true,
