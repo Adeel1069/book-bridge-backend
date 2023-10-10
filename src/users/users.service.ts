@@ -41,14 +41,17 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  async findOne({ id, email }: IFindOne): Promise<IUser> {
+  async findOne({ id, email }: IFindOne): Promise<Partial<IUser>> {
     if (!id && !email)
       throw new Error("Either 'id' or 'email' must be provided.");
 
     const user = this.users.find(
       (user) => user.id === id || user.email === email,
     );
-    return user;
+
+    const { password, ...newUser } = user;
+    if (id) return newUser;
+    else return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

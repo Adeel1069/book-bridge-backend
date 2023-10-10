@@ -10,6 +10,8 @@ export interface IUser {
   imageUrl: string | null;
 }
 
+export type IUserWithoutPassword = Omit<IUser, 'password'>;
+
 export interface IFindOne {
   id?: string;
   email?: string;
