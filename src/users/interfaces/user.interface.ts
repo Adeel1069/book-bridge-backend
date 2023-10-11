@@ -1,12 +1,12 @@
 import { Role } from 'src/roles/role.enum';
 
 export interface IUser {
-  id: string;
+  _id?: string;
   username: string;
   email: string;
   password: string;
   role: Role;
-  dob: string;
+  dob: Date;
   gender: string;
   isSubscribeToNewsLetter: boolean;
   interest: string[];

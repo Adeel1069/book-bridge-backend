@@ -1,60 +1,56 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IFindOne, IUser } from './interfaces/user.interface';
-import { Role } from 'src/roles/role.enum';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import config from 'src/config/keys';
+import { PasswordHasher } from 'src/utils/password-hasher.utils';
 
 @Injectable()
 export class UsersService {
-  private users = [
-    {
-      id: '1',
-      username: 'Adeel',
-      email: 'hafizadeel493@gmail.com',
-      password: 'Adeel123',
-      role: Role.Admin,
-      dob: 'Mon Oct 09 2023 17:39:22 GMT+0500 (Pakistan Standard Time)',
-      gender: 'male',
-      isSubscribeToNewsLetter: true,
-      interest: ['cat_id_1', 'cat_id_2', 'cat_id_2'],
-      imageUrl: null,
-    },
-    {
-      id: '2',
-      username: 'Khurrum',
-      email: 'khurrum@gmail.com',
-      password: 'Adeel123',
-      role: Role.User,
-      dob: 'Mon Oct 09 2023 17:39:22 GMT+0500 (Pakistan Standard Time)',
-      gender: 'male',
-      isSubscribeToNewsLetter: true,
-      interest: ['cat_id_1', 'cat_id_2', 'cat_id_2'],
-      imageUrl: null,
-    },
-  ];
+  constructor(@InjectModel('User') private userModel: Model<IUser>) {}
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: IUser) {
+    const isEmailExist = await this.userModel.findOne({
+      email: createUserDto.email,
+    });
+
+    if (isEmailExist)
+      throw new ForbiddenException(
+        'Email already exists. Please choose a different email.',
+      );
+
+    const hashedPassword = PasswordHasher.hashPassword(
+      createUserDto.password,
+      config.SALT_ROUNDS,
+    );
+
+    createUserDto.password = hashedPassword;
+
+    const newUser = new this.userModel(createUserDto);
+    await newUser.save();
+
     return {
-      message: 'User added successfully',
-      data: createUserDto,
+      success: true,
     };
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<IUser[]> {
+    const users = await this.userModel.find();
+    return users;
   }
 
   async findOne({ id, email }: IFindOne): Promise<Partial<IUser>> {
     if (!id && !email)
       throw new Error("Either 'id' or 'email' must be provided.");
 
-    const user = this.users.find(
-      (user) => user.id === id || user.email === email,
-    );
+    const userById = await this.userModel
+      .findOne({ _id: id })
+      .select('-password');
+    const userByEmail = await this.userModel.findOne({ email });
 
-    const { password, ...newUser } = user;
-    if (id) return newUser;
-    else return user;
+    if (id) return userById;
+    else return userByEmail;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

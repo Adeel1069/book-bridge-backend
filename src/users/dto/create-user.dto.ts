@@ -10,6 +10,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
+import { Role } from 'src/roles/role.enum';
 
 enum Gender {
   Male = 'male',
@@ -30,6 +31,10 @@ export class CreateUserDto {
   @IsString()
   @Length(6, 12)
   password: string;
+
+  @IsOptional()
+  @IsEnum(Role)
+  role: Role;
 
   @Transform(({ value }) => new Date(value))
   @IsDate()
