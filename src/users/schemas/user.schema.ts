@@ -1,7 +1,9 @@
 import * as mongoose from 'mongoose';
 import { Role } from 'src/roles/role.enum';
 
-export const genderEnum = ['male', 'female', 'other'];
+const genderEnum = ['male', 'female', 'other'];
+
+export const ModelName = 'User';
 
 export const UserSchema = new mongoose.Schema(
   {

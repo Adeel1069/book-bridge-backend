@@ -1,16 +1,22 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { IFindOne, IUser } from './interfaces/user.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import config from 'src/config/keys';
 import { PasswordHasher } from 'src/utils/password-hasher.utils';
+import { CreateUserDto } from './dto/create-user.dto';
+import { ModelName } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel('User') private userModel: Model<IUser>) {}
+  constructor(@InjectModel(ModelName) private userModel: Model<IUser>) {}
 
-  async create(createUserDto: IUser) {
+  async create(createUserDto: CreateUserDto) {
     const isEmailExist = await this.userModel.findOne({
       email: createUserDto.email,
     });
@@ -49,6 +55,7 @@ export class UsersService {
       .select('-password');
     const userByEmail = await this.userModel.findOne({ email });
 
+    if (!userById || !userByEmail) throw new NotFoundException();
     if (id) return userById;
     else return userByEmail;
   }
@@ -60,16 +67,23 @@ export class UsersService {
         config.SALT_ROUNDS,
       );
     }
-    await this.userModel.findByIdAndUpdate(id, updateUserDto, {
-      new: true,
-    });
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      id,
+      updateUserDto,
+      {
+        new: true,
+      },
+    );
+
+    if (!updatedUser) throw new NotFoundException();
     return {
       success: true,
     };
   }
 
   async remove(id: string) {
-    await this.userModel.findByIdAndDelete(id);
+    const deletedUser = await this.userModel.findByIdAndDelete(id);
+    if (!deletedUser) throw new NotFoundException();
     return {
       success: true,
     };

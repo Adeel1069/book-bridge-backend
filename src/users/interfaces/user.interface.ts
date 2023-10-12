@@ -1,7 +1,7 @@
+import { Document } from 'mongoose';
 import { Role } from 'src/roles/role.enum';
 
-export interface IUser {
-  _id?: string;
+export class IUser extends Document {
   username: string;
   email: string;
   password: string;
@@ -13,8 +13,6 @@ export interface IUser {
   interest: string[];
   imageUrl: string | null;
 }
-
-export type IUserWithoutPassword = Omit<IUser, 'password'>;
 
 export interface IFindOne {
   id?: string;
