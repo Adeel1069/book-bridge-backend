@@ -10,7 +10,6 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { Role } from 'src/roles/role.enum';
 
 enum Gender {
   Male = 'male',
@@ -32,10 +31,6 @@ export class CreateUserDto {
   @Length(6, 12)
   password: string;
 
-  @IsOptional()
-  @IsEnum(Role)
-  role: Role;
-
   @Transform(({ value }) => new Date(value))
   @IsDate()
   dob: Date;
@@ -45,6 +40,10 @@ export class CreateUserDto {
 
   @IsBoolean()
   isSubscribeToNewsLetter: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isVerified: boolean;
 
   @IsArray()
   interest: string[];

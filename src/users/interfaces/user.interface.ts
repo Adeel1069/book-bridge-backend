@@ -5,10 +5,11 @@ export interface IUser {
   username: string;
   email: string;
   password: string;
-  role: Role;
+  role?: Role;
   dob: Date;
   gender: string;
   isSubscribeToNewsLetter: boolean;
+  isVerified?: boolean;
   interest: string[];
   imageUrl: string | null;
 }

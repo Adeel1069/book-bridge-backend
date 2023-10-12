@@ -13,6 +13,7 @@ export const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      immutable: true,
     },
     password: {
       type: String,
@@ -29,6 +30,10 @@ export const UserSchema = new mongoose.Schema(
       enum: genderEnum,
     },
     isSubscribeToNewsLetter: Boolean,
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     interest: [String],
     imageUrl: String || null,
   },

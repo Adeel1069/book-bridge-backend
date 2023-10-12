@@ -15,8 +15,8 @@ export class AuthService {
     const user = await this.usersService.findOne({ email });
 
     const isPasswordMatched = PasswordHasher.comparePasswords(
-      pass,
-      user?.password,
+      pass.toString(),
+      user?.password ?? '',
     );
 
     if (!user || !isPasswordMatched) {

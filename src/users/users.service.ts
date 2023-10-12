@@ -53,14 +53,25 @@ export class UsersService {
     else return userByEmail;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    if (updateUserDto.password) {
+      updateUserDto.password = PasswordHasher.hashPassword(
+        updateUserDto.password,
+        config.SALT_ROUNDS,
+      );
+    }
+    await this.userModel.findByIdAndUpdate(id, updateUserDto, {
+      new: true,
+    });
     return {
-      message: `This action updates a #${id} user`,
-      data: updateUserDto,
+      success: true,
     };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    await this.userModel.findByIdAndDelete(id);
+    return {
+      success: true,
+    };
   }
 }
