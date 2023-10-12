@@ -13,6 +13,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { ObjectIdValidation } from 'src/pipes/object-id-validation.pipe';
 
 @Controller('categories')
 export class CategoriesController {
@@ -30,22 +31,22 @@ export class CategoriesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
+  findOne(@Param('id', ObjectIdValidation) id: string) {
+    return this.categoriesService.findOne(id);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
   @Put(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', ObjectIdValidation) id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+    return this.categoriesService.update(id, updateCategoryDto);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(+id);
+  remove(@Param('id', ObjectIdValidation) id: string) {
+    return this.categoriesService.remove(id);
   }
 }

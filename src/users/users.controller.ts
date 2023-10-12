@@ -15,6 +15,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { Role } from 'src/roles/role.enum';
+import { ObjectIdValidation } from 'src/pipes/object-id-validation.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -33,19 +34,22 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id', ObjectIdValidation) id: string) {
     return this.usersService.findOne({ id });
   }
 
   @UseGuards(AuthGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  update(
+    @Param('id', ObjectIdValidation) id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.usersService.update(id, updateUserDto);
   }
 
   @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string, @Req() req: any) {
+  remove(@Param('id', ObjectIdValidation) id: string, @Req() req: any) {
     const { sub, role } = req.user;
     if (id === sub || role === Role.Admin) {
       return this.usersService.remove(id);

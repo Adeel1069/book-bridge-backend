@@ -41,9 +41,12 @@ export class UsersService {
     };
   }
 
-  async findAll(): Promise<IUser[]> {
+  async findAll(): Promise<{ success: boolean; data: IUser[] }> {
     const users = await this.userModel.find();
-    return users;
+    return {
+      success: true,
+      data: users,
+    };
   }
 
   async findOne({ id, email }: IFindOne): Promise<Partial<IUser>> {
@@ -55,7 +58,7 @@ export class UsersService {
       .select('-password');
     const userByEmail = await this.userModel.findOne({ email });
 
-    if (!userById || !userByEmail) throw new NotFoundException();
+    if (!userById && !userByEmail) throw new NotFoundException();
     if (id) return userById;
     else return userByEmail;
   }
