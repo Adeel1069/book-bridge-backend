@@ -16,7 +16,7 @@ import { ModelName } from './schemas/user.schema';
 export class UsersService {
   constructor(@InjectModel(ModelName) private userModel: Model<IUser>) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<{ success: boolean }> {
     const isEmailExist = await this.userModel.findOne({
       email: createUserDto.email,
     });
@@ -41,12 +41,9 @@ export class UsersService {
     };
   }
 
-  async findAll(): Promise<{ success: boolean; data: IUser[] }> {
+  async findAll(): Promise<IUser[]> {
     const users = await this.userModel.find();
-    return {
-      success: true,
-      data: users,
-    };
+    return users;
   }
 
   async findOne({ id, email }: IFindOne): Promise<Partial<IUser>> {
@@ -63,7 +60,10 @@ export class UsersService {
     else return userByEmail;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<{ success: boolean }> {
     if (updateUserDto.password) {
       updateUserDto.password = PasswordHasher.hashPassword(
         updateUserDto.password,
@@ -84,7 +84,7 @@ export class UsersService {
     };
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<{ success: boolean }> {
     const deletedUser = await this.userModel.findByIdAndDelete(id);
     if (!deletedUser) throw new NotFoundException();
     return {

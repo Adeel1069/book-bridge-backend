@@ -13,6 +13,7 @@ import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { ObjectIdValidation } from 'src/pipes/object-id-validation.pipe';
 
 @Controller('authors')
 export class AuthorsController {
@@ -30,19 +31,22 @@ export class AuthorsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authorsService.findOne(+id);
+  findOne(@Param('id', ObjectIdValidation) id: string) {
+    return this.authorsService.findOne(id);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateAuthorDto: UpdateAuthorDto) {
-    return this.authorsService.update(+id, updateAuthorDto);
+  update(
+    @Param('id', ObjectIdValidation) id: string,
+    @Body() updateAuthorDto: UpdateAuthorDto,
+  ) {
+    return this.authorsService.update(id, updateAuthorDto);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authorsService.remove(+id);
+  remove(@Param('id', ObjectIdValidation) id: string) {
+    return this.authorsService.remove(id);
   }
 }

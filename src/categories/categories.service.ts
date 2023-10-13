@@ -16,7 +16,9 @@ export class CategoriesService {
     @InjectModel(ModelName) private categoryModel: Model<ICategory>,
   ) {}
 
-  async create(createCategoryDto: CreateCategoryDto) {
+  async create(
+    createCategoryDto: CreateCategoryDto,
+  ): Promise<{ success: boolean }> {
     const isCategoryExist = await this.categoryModel.findOne({
       name: createCategoryDto.name,
     });
@@ -32,12 +34,9 @@ export class CategoriesService {
     };
   }
 
-  async findAll(): Promise<{ success: boolean; data: ICategory[] }> {
+  async findAll(): Promise<ICategory[]> {
     const categories = await this.categoryModel.find();
-    return {
-      success: true,
-      data: categories,
-    };
+    return categories;
   }
 
   async findOne(id: string): Promise<ICategory> {
