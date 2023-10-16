@@ -2,16 +2,16 @@ import { Document } from 'mongoose';
 import { Role } from 'src/roles/role.enum';
 
 export class IUser extends Document {
-  username: string;
-  email: string;
-  password: string;
-  role?: Role;
-  dob: Date;
-  gender: string;
-  isSubscribeToNewsLetter: boolean;
-  isVerified?: boolean;
-  interest: string[];
-  imageUrl: string | null;
+  readonly username: string;
+  readonly email: string;
+  readonly password: string;
+  readonly role?: Role;
+  readonly dob: Date;
+  readonly gender: string;
+  readonly isSubscribeToNewsLetter: boolean;
+  readonly isVerified?: boolean;
+  readonly interest: string[];
+  readonly imageUrl: string | null;
 }
 
 export interface IFindOne {

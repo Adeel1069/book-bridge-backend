@@ -13,6 +13,7 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { ObjectIdValidation } from 'src/pipes/object-id-validation.pipe';
 
 @Controller('books')
 export class BooksController {
@@ -30,19 +31,22 @@ export class BooksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.booksService.findOne(+id);
+  findOne(@Param('id', ObjectIdValidation) id: string) {
+    return this.booksService.findOne(id);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.booksService.update(+id, updateBookDto);
+  update(
+    @Param('id', ObjectIdValidation) id: string,
+    @Body() updateBookDto: UpdateBookDto,
+  ) {
+    return this.booksService.update(id, updateBookDto);
   }
 
   @UseGuards(AuthGuard, RolesGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.booksService.remove(+id);
+  remove(@Param('id', ObjectIdValidation) id: string) {
+    return this.booksService.remove(id);
   }
 }
