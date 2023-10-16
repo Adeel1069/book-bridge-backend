@@ -12,7 +12,7 @@ import { RatingsService } from './ratings.service';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { RolesGuard } from 'src/roles/roles.guard';
+import { ObjectIdValidation } from 'src/pipes/object-id-validation.pipe';
 
 @Controller('ratings')
 export class RatingsController {
@@ -30,19 +30,27 @@ export class RatingsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ratingsService.findOne(+id);
+  findOne(@Param('id', ObjectIdValidation) id: string) {
+    return this.ratingsService.findOne(id);
+  }
+
+  @Get('book-ratings/:id')
+  findBookRatings(@Param('id', ObjectIdValidation) id: string) {
+    return this.ratingsService.findBookRatings(id);
   }
 
   @UseGuards(AuthGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateRatingDto: UpdateRatingDto) {
-    return this.ratingsService.update(+id, updateRatingDto);
+  update(
+    @Param('id', ObjectIdValidation) id: string,
+    @Body() updateRatingDto: UpdateRatingDto,
+  ) {
+    return this.ratingsService.update(id, updateRatingDto);
   }
 
-  @UseGuards(AuthGuard, RolesGuard)
+  @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ratingsService.remove(+id);
+  remove(@Param('id', ObjectIdValidation) id: string) {
+    return this.ratingsService.remove(id);
   }
 }
