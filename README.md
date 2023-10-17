@@ -1,73 +1,48 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Book Bridge
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Book Bridge is a web application that makes it easy to explore and manage PDF books. Whether you're a book enthusiast or a publisher, Book Bridge offers a seamless platform for discovering, downloading, and interacting with a wide variety of books.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- **Browse Books:** Explore a diverse collection of PDF books organized by categories.
+- **Search & Filter:** Find books based on categories and authors with advanced search and filter options.
+- **Book Details:** View detailed information about each book, including the author, description, price, and more.
+- **User Accounts:** Register and log in to create and manage your user account.
+- **Rate & Comment:** Share your thoughts by rating and leaving comments on books.
+- **Download Books:** Easily download the books you love.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Backend Entities
 
-## Installation
+- **Authors:** Discover information about the authors of the books, including their bio and date of birth.
+- **Categories:** Browse books organized by categories.
+- **Users:** Create your user account, customize your profile, and manage your activity.
+- **Books:** Get detailed information about books, their authors, and categories.
+- **Authentication:** Secure user authentication with roles and permissions.
+- **Ratings & Comments:** Contribute to the book community by rating and commenting on books.
 
-```bash
-$ npm install
+## Getting Started
+
+Follow these steps to set up Book Bridge on your local machine:
+
+1. Clone the repository: `git clone https://github.com/your-username/book-bridge-backend.git`
+2. Install dependencies: `npm install`
+3. Configure environment variables: Set up your database and other configurations.
+4. Run the server: `npm start`
+
+## Configuration
+
+To run Book Bridge, you need to set up environment variables. Create a `.env` file in the project root and configure it with the following variables:
+
+```plaintext
+PORT={PORT}
+MONGO_URL={YOUR_MONGO_CONNECTION_STRING}
+JWT_SECRET={YOUR_JWT_SECRET}
 ```
 
-## Running the app
+## Contribution
 
-```bash
-# development
-$ npm run start
+We welcome contributions to enhance Book Bridge. Whether it's bug fixes, new features, or documentation improvements, your contributions are valued.
 
-# watch mode
-$ npm run start:dev
+## Contact
 
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+Have questions or suggestions? Feel free to [contact us](mailto:hafizadeel493@gmail.com).
