@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const ModelName = 'Category';
+export const CategoryModel = 'Category';
 
 export const CategorySchema = new mongoose.Schema(
   {

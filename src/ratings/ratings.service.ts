@@ -2,13 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { ModelName } from './schemas/rating.schema';
+import { RatingModel } from './schemas/rating.schema';
 import { Model } from 'mongoose';
 import { IRating } from './interfaces/rating.interface';
 
 @Injectable()
 export class RatingsService {
-  constructor(@InjectModel(ModelName) private ratingModel: Model<IRating>) {}
+  constructor(@InjectModel(RatingModel) private ratingModel: Model<IRating>) {}
 
   async create(
     createRatingDto: CreateRatingDto,

@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
-import { ModelName as UserModel } from 'src/users/schemas/user.schema';
-import { ModelName as BookModel } from 'src/books/schemas/book.schema';
+import { UserModel } from 'src/users/schemas/user.schema';
+import { BookModel } from 'src/books/schemas/book.schema';
 
-export const ModelName = 'Rating';
+export const RatingModel = 'Rating';
 
 export const RatingSchema = new mongoose.Schema(
   {

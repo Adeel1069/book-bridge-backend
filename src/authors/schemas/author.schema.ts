@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const ModelName = 'Author';
+export const AuthorModel = 'Author';
 
 export const AuthorSchema = new mongoose.Schema(
   {

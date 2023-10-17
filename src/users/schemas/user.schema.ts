@@ -3,7 +3,7 @@ import { Role } from 'src/roles/role.enum';
 
 const genderEnum = ['male', 'female', 'other'];
 
-export const ModelName = 'User';
+export const UserModel = 'User';
 
 export const UserSchema = new mongoose.Schema(
   {

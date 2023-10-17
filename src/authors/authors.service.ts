@@ -2,13 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { ModelName } from './schemas/author.schema';
+import { AuthorModel } from './schemas/author.schema';
 import { Model } from 'mongoose';
 import { IAuthor } from './interfaces/author.interface';
 
 @Injectable()
 export class AuthorsService {
-  constructor(@InjectModel(ModelName) private authorModel: Model<IAuthor>) {}
+  constructor(@InjectModel(AuthorModel) private authorModel: Model<IAuthor>) {}
 
   async create(
     createAuthorDto: CreateAuthorDto,

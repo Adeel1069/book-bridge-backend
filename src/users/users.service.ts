@@ -10,11 +10,11 @@ import { Model } from 'mongoose';
 import config from 'src/config/keys';
 import { PasswordHasher } from 'src/utils/password-hasher.utils';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ModelName } from './schemas/user.schema';
+import { UserModel } from './schemas/user.schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(ModelName) private userModel: Model<IUser>) {}
+  constructor(@InjectModel(UserModel) private userModel: Model<IUser>) {}
 
   async create(createUserDto: CreateUserDto): Promise<{ success: boolean }> {
     const isEmailExist = await this.userModel.findOne({

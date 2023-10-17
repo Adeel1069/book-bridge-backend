@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
-import { ModelName as AuthorModel } from 'src/authors/schemas/author.schema';
-import { ModelName as CategoryModel } from 'src/categories/schemas/category.schema';
+import { AuthorModel } from 'src/authors/schemas/author.schema';
+import { CategoryModel } from 'src/categories/schemas/category.schema';
 
-export const ModelName = 'Book';
+export const BookModel = 'Book';
 
 export const BookSchema = new mongoose.Schema(
   {

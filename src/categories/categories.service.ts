@@ -6,14 +6,14 @@ import {
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { ModelName } from './schemas/category.schema';
+import { CategoryModel } from './schemas/category.schema';
 import { Model } from 'mongoose';
 import { ICategory } from './interfaces/category.interface';
 
 @Injectable()
 export class CategoriesService {
   constructor(
-    @InjectModel(ModelName) private categoryModel: Model<ICategory>,
+    @InjectModel(CategoryModel) private categoryModel: Model<ICategory>,
   ) {}
 
   async create(

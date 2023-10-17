@@ -2,13 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { ModelName } from './schemas/book.schema';
+import { BookModel } from './schemas/book.schema';
 import { Model } from 'mongoose';
 import { IBook } from './interfaces/book.interface';
 
 @Injectable()
 export class BooksService {
-  constructor(@InjectModel(ModelName) private bookModel: Model<IBook>) {}
+  constructor(@InjectModel(BookModel) private bookModel: Model<IBook>) {}
 
   async create(createBookDto: CreateBookDto): Promise<{ success: boolean }> {
     const newBook = new this.bookModel(createBookDto);
